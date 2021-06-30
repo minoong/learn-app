@@ -8,7 +8,6 @@ const instance = axios.create({
 instance.interceptors.request.use(
   (config) => {
     console.log(2);
-    console.log(1);
     config.headers = {
       Authorization: `Bearer ${localStorage.getItem('com.naver.nid.access_token')?.split('.')[13]}`,
     };

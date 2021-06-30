@@ -9,6 +9,7 @@ instance.interceptors.request.use(
   (config) => {
     console.log(1);
     console.log(1);
+    console.log(1);
     console.log(2);
     console.log(12);
     config.headers = {

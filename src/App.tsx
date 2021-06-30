@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react';
 import './App.css';
 import ChangeNameAvatar from './components/common/ChangeNameAvatar';
-import { Route, useLocation } from 'react-router-dom';
+import { Route, useLocation, withRouter } from 'react-router-dom';
 import LazyWrapper from './components/LazyWrapper';
 import TodoTemplate from './components/template/TodoTemplate';
 import SlideContainer from './Container/common/SlideContainer';
 import Naver from './lib/oauth/Naver';
 import Callback from './lib/oauth/Callback';
-import axios from 'axios';
+import instance from './lib/api/client';
 
-function App() {
+function App({ history }: any) {
   const dummy: string[] = Array(10).fill('test');
   const NaverLogin = () => {
     Naver();
@@ -38,26 +38,23 @@ function App() {
 
       // const data = await instance.post('/v1/nid/me');
 
-      axios({
+      instance({
         // 프록시에 카카오 도메인을 설정했으므로 결제 준비 url만 주자
         url: '/v1/nid/me',
         // 결제 준비 API는 POST 메소드라고 한다.
         method: 'GET',
-        headers: {
-          // 카카오 developers에 등록한 admin키를 헤더에 줘야 한다.
-          // Authorization: `${getNaverToken()}`,
-          Authorization: `Bearer ${localStorage.getItem('com.naver.nid.access_token')?.split('.')[1]}`,
-        },
-        // 설정한 매개변수들
       })
         .then((response) => {
           console.log(response);
         })
-        .catch((error) => console.log(error.response));
+        .catch((error) => {
+          console.log(error.response);
+          history.push('/lazy');
+        });
     }
 
     test();
-  }, []);
+  }, [history]);
 
   return (
     <div className="App">
@@ -71,4 +68,4 @@ function App() {
   );
 }
 
-export default App;
+export default withRouter(App);

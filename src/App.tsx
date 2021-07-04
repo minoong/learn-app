@@ -8,6 +8,7 @@ import SlideContainer from './Container/common/SlideContainer';
 import Naver from './lib/oauth/Naver';
 import Callback from './lib/oauth/Callback';
 import instance from './lib/api/client';
+import List from './components/dnd/List';
 
 function App({ history }: any) {
   const dummy: string[] = Array(10).fill('test');
@@ -64,6 +65,7 @@ function App({ history }: any) {
       <Route path="/todo" component={TodoTemplate} />
       <Route path="/slide" component={SlideContainer} />
       <Route path="/Api/Member/Oauth" component={Callback} />
+      <Route path="/dnd" component={List} />
     </div>
   );
 }

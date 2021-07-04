@@ -7,6 +7,7 @@ declare global {
 }
 
 const Naver = () => {
+  console.log(`${process.env.REACT_APP_NAVER_LOGIN}`);
   const { naver } = window;
   const naverLogin = new naver.LoginWithNaverId({
     clientId: `${process.env.REACT_APP_NAVER_LOGIN}`,

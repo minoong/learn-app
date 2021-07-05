@@ -9,12 +9,31 @@ import Naver from './lib/oauth/Naver';
 import Callback from './lib/oauth/Callback';
 import instance from './lib/api/client';
 import List from './components/dnd/List';
+import slice, { Daily } from './redux/DailySlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { ReducerType } from './redux/rootReducer';
 
 function App({ history }: any) {
   const dummy: string[] = Array(10).fill('test');
   const NaverLogin = () => {
     Naver();
   };
+
+  const dispath = useDispatch();
+
+  useEffect(() => {
+    const date = new Date().toISOString();
+    const test: Daily = {
+      id: 'sadfafsd',
+      writer: 'test',
+      content: 'sdfsd',
+      date,
+      tags: ['z'],
+    };
+    dispath(slice.actions.addDaily(test));
+  }, [dispath]);
+
+  //console.log(useSelector<ReducerType, Daily[]>((state) => state.daily));
 
   const location = useLocation();
 
@@ -50,7 +69,7 @@ function App({ history }: any) {
         })
         .catch((error) => {
           console.log(error.response);
-          history.push('/lazy');
+          //history.push('/lazy');
         });
     }
 

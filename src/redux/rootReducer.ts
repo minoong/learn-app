@@ -1,7 +1,10 @@
 import { combineReducers } from '@reduxjs/toolkit';
+import slice from './DailySlice';
 
-const rootReducer = combineReducers({});
+const rootReducer = combineReducers({
+  daily: slice.reducer,
+});
 
-export type RootState = ReturnType<typeof rootReducer>;
+export type ReducerType = ReturnType<typeof rootReducer>;
 
 export default rootReducer;
